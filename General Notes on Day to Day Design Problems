@@ -1,2 +1,14 @@
-Designing application to support config changes without restart --
+1. Designing application to support config changes without restart --
 https://stackoverflow.com/questions/35006432/designing-application-to-support-config-changes-without-restart
+
+2. Differences between Alerts and Faults --
+The distinction between faults and alerts is not "important" and "unimportant", but instead "persistent" and "transient". A fault results in some broken state that needs to be repaired (and may be repaired automatically as a result of environmental changes). An alert notes a discrete event occurred. Faults tend to be more important, since something must be fixed, but that is not inherent in their design; either can be important depending on the situation.
+
+What is an Alert ?
+An alert represents a single event which happens at a point in time. An alert is like an announcement. For example, "Permission denied while writing to file" or the like. Alerts can be configured to broadcast via email, syslog, and SNMP, and a record of alerts that happened can be retrieved from the GUI or the CLI.
+
+What is a Fault ?
+A fault is a continuing problematic state. For example, "This system is over the 85% disk space threshold". A fault is meant to stay active for however long the condition persists, until the fault is cleared (sometimes automatically, and sometimes by the user). If a system has any active faults, the GUI will show this in red type on the upper-right hand part of the screen (e.g. it might say "3 faults").  If you click on that, a window will open with more information about each fault.  Faults can also of course be queried from the CLI.
+
+Severity Level & Frequency:
+Alerts can be tagged as CRITICAL, WARNING, or INFORMATIONAL. Faults can only be tagged as CRITICAL or WARNING. When a fault is raised, a corresponding alert is generated. The severity of the alert that gets generated when a fault is raised matches the severity of the fault (CRITICAL faults generate CRITICAL alerts).  
